@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Komugi</title>
+    <link rel="icon" type="image/x-icon" href="../static/img/LOGO_2_NAV_BAR-removebg-preview.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='libs/chessboard/css/chessboard-0.3.0.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='rook_favicon.ico') }}">
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+    <!-- Optional theme -->
+
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+        
+
+    
+<style>
+    * {
+    font-family: 'Montserrat',sans-serif ;
+  }
+</style>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark sticky-top ">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex">
+                <img cl src="../static/img/LOGO_2_NAV_BAR.jpg" alt="" style="width: 200px;">
+            </div>
+            <div class="w-50 d-flex gap-4">
+                <a href="/sign_in" class="text-decoration-none  fs-5" style="color:
+#e5cffc">Login</a>
+                <a href="/" class="text-decoration-none  fs-5 " style="color:
+                #e5cffc">About</a>
+                {%if session["user_id"]%}
+                <a href="/learn" class="text-decoration-none  fs-5 " style="color:
+#e5cffc">Learn</a>
+                <a href="" class="text-decoration-none  fs-5 " style="color:
+#e5cffc">Blog</a>
+                <a href="/support" class="text-decoration-none  fs-5 " style="color:
+#e5cffc">Support</a>
+                <a href="/FAQ" class="text-decoration-none  fs-5 " style="color:
+#e5cffc">F.A.Q</a>
+                <a href="/logout" class="text-decoration-none d-flex gap-1 align-items-center fs-5 " style="color:
+#e5cffc"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left text-light" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+      </svg>Logout</a>
+<a href="/dashboard" class="text-light"><i class='fas fa-user-alt' style='font-size:24px' ></i></a>
+                {%endif%}
+
+            </div>
+        </div>
+    </nav>
+    <div class="container  ">
+        <div class="row d-flex">
+            <div class="col-xs-12 col-sm-6">
+                <div id="mainWindow">
+                    <div id="piecesB"></div>
+                    <div id="board"></div>
+                    <div id="piecesW"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 mt-5 d-flex">
+                <div id="secondWindow" class="w-100">
+                    <h3><span id="status" class="mb-3">White to move</span></h3>
+                    <div id="moveTable">
+                        <table class="table table-striped table-condensed" id="pgn">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>White</th>
+                                    <th>Black</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="controls">
+                        <form class="form-inline d-flex justify-content-between  gap-5 mt-5">
+                            <button style="background-color:
+                            #7523cf;" type="button" class="btn   text-light h-25 w-100" id="backBtn"
+                                onclick="takeBack()">Take Back</button>
+                            <button style="background-color:#7523cf;" type="button" class="btn  text-light h-25 w-100"
+                                id="reset" onclick="newGame()">New Game</button>
+                            <select class="form-select h-25 " id="sel1">
+                                <option value="5">Depth: 5</option>
+                                <option value="4">Depth: 4</option>
+                                <option value="3">Depth: 3</option>
+                                <option value="2">Depth: 2</option>
+                                <option value="1">Depth: 1</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
+    <script type="text/javascript"> $SCRIPT_ROOT = {{ request.script_root | tojson | safe }} </script>
+    <script type="text/javascript"
+        src="{{ url_for('static',filename='libs/chessboard/js/chessboard-0.3.0.js') }}"></script>
+
+    <script type="text/javascript"
+        src="{{ url_for('static',filename='libs/chessboard/js/chessboard-0.3.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</body>
+
+</html>

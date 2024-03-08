@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+torch = "*"
+numpy = "*"
+chess = "*"
+gym-chess = "*"
+flask-cors = "*"
+pymysql = "*"
+flask-bcrypt = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

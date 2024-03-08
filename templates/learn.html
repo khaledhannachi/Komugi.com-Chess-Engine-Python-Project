@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Chess</title>
+    <style>
+        * {
+    font-family: 'Montserrat',sans-serif ;
+  }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark sticky-top  ">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex">
+                <img cl src="../static/img/LOGO_2_NAV_BAR.jpg" alt="" style="width: 200px;">
+            </div>
+            <div class="w-50 d-flex gap-4">
+                <a href="/chess" class="text-decoration-none  fs-5" style="color:
+#e5cffc">Play Now</a>
+               
+                <a href="/logout" class="text-decoration-none  fs-5 " style="color:
+#e5cffc">Logout</a>
+                
+
+            </div>
+        </div>
+    </nav>
+    <!-- Content -->
+    <div class="container mt-4">
+        <img src="/chess.jpg" alt=""  >
+        <h1>Never Forget your Openings</h1>
+        <p>Chessable uses science-backed learning techniques to help boost your <br> retention by up to 95%.
+            Play the opening like a <br>book, the middlegame like a magician, and the endgame like a machine.</p>
+        <div class="container mt-5">
+
+
+
+
+            <div class="row" id="stats_present">
+                <div class="col-md-4">
+                    <h2 class="text-primary" id="count">1000+</h2>
+                    <p class="lead">Courses</p>
+                </div>
+                <div class="col-md-4">
+                    <h2 class="text-success" id="count2">400+</h2>
+                    <p class="lead">Authors</p>
+                </div>
+                <div class="col-md-4">
+                    <h2 class="text-danger" id="count3">0</h2>
+                    <p class="lead">Students</p>
+                </div>
+            </div>
+            <a class="btn" style="background-color:  #7523cf;" href="/show" role="button">Start learning - Its free</a>
+        </div>
+    </div>
+    <div class="container mt-4">
+    </div>
+    <!-- Footer Section -->
+<footer class="mt-5 text-center text-muted">
+    <p>&copy; 2023 Your Chess Platform. All rights reserved.</p>
+</footer>
+
+
+
+<script>
+    function startCounter(element, target) {
+        let count = 0;
+        const duration = 5000;
+        const step = Math.ceil(target / (duration / 100));
+        const timer = setInterval(() => {
+            count = count + step;
+            if (count >= target) {
+                clearInterval(timer);
+                count = target;
+            }
+            element.textContent = count;
+        }, 10);
+    }
+
+    function show_apply_test() {
+        var elms = document.querySelectorAll("#count");
+        for (var i = 0; i < elms.length; i++) {
+            startCounter(elms[i], 700);
+        }
+    }
+
+    function show_apply_test2() {
+        var elms2 = document.querySelectorAll("#count2");
+        for (var i = 0; i < elms2.length; i++) {
+            startCounter(elms2[i], 400);
+        }
+    }
+
+    function show_apply_test3() {
+        var elms3 = document.querySelectorAll("#count3");
+        for (var i = 0; i < elms3.length; i++) {
+            startCounter(elms3[i], 1000);
+        }
+    }
+
+    window.onload = function () {
+        show_apply_test();
+        show_apply_test2();
+        show_apply_test3();
+    };
+</script>
+
+
+
+</body>
+</html>
